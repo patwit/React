@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Viewer</title>
+    <script type="module" src="./index.tsx"></script>
+</head>
+<body>
+    <nav>
+        <button onclick="loadDashboard('budget-visualization')">Budget Visualization</button>
+        <button onclick="loadDashboard('salary-dashboard')">Salary Dashboard</button>
+        <button onclick="loadDashboard('staff-function-analysis')">Staff Function Analysis</button>
+    </nav>
+
+    <div id="root"></div>
+
+    <script>
+        function loadDashboard(dashboard) {
+            import(`./${dashboard}.tsx`)
+                .then((module) => {
+                    const Root = document.getElementById('root');
+                    Root.innerHTML = '';
+                    ReactDOM.createRoot(Root).render(React.createElement(module.default));
+                })
+                .catch((error) => console.error('Error loading dashboard:', error));
+        }
+    </script>
+</body>
+</html>
